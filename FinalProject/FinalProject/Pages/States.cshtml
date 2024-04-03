@@ -1,0 +1,52 @@
+@page
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model FinalProject.Pages.StatesModel
+@{
+    ViewData["Title"] = "States";
+    List<States> states = (List<States>)ViewData["States"];
+    Random random = new Random();
+    int index = random.Next(states.Count);
+    string stateName = (string)ViewData["StateName"];
+    bool correctGuess = (bool)ViewData["CorrectGuess"];
+    string doggoImage = (string)ViewData["DoggoImage"];
+}
+
+<body>
+<div class="container m-10 text-light text-center">
+    <div class="jumbotron-fluid jumbo m-4 p-4">
+        <h1 class="display-5">Guess the state code</h1>
+        <p class="lead">We partnered with our friendly Neighbourhood Watchers to get the states in the US and their State Codes to create this fun game.</p>
+        <hr class="my-4">
+        <h3 class="display-6">What is the state code of <a class="statename">@states[index].Name?</a></h3>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form method="GET" action="" class="mx-3">
+                    <div class="input-group mt-2">
+                        <input type="hidden" name="stateName" value="@states[index].Name"/>
+                        <input type="text" class="form-control" style="width: 300px;" placeholder="Enter state code" name="stateCode"/>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <br/>
+        @if (correctGuess && stateName != null)
+        {
+            <div class="text-center">
+                <h1 class="display-6">You guessed it right!</h1>
+                <h2>@doggoImage</h2>
+            </div>
+            
+        }
+        else if(!correctGuess && stateName != null)
+        {
+            <h1 class="text-center">Oops...try again?</h1>
+        }
+    </div>
+    <p class="text-dark">Check out their <a class="statename" href="https://neighborhoodwatch.azurewebsites.net/">website</a> to learn more about safe areas in Cincinnati.</p>
+</div>
+</body>

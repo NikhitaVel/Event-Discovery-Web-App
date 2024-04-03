@@ -1,0 +1,67 @@
+﻿@page
+@using EventData;
+@model FinalProject.Pages.SportsModel
+@{
+    ViewData["Title"] = "Home page";
+    List<Event> events = (List<Event>)ViewData["Events"];
+}
+
+@{
+    Event evnt;
+    string formattedDate;
+    for (int i = 0; i < events.Count; i += 2)
+    {
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+
+            @{
+                evnt = events[i];
+                formattedDate = evnt.DatetimeUtc.ToString("MMM dd, yyyy");
+            }
+            <div class="col-md-5">
+                <div class="left-div">
+                    <div class="event-list text-light m-0 p-0" id="ovelay" style="background-image: url(@evnt.Performers[0].Image);">
+                        <div class="box">
+                            <div class="date-card">@formattedDate</div>
+                            <br>
+                            <h2 class="card-title text-nowrap overflow-ellipsis">@evnt.ShortTitle</h2>
+                            <p class="text-light">Venue: @evnt.Venue.Name</p>
+                            <div class="card-footer btn-group" style="text-align: center; width: 100%">
+                                <a class="btn btn-s details-button m-1" asp-page="/eventdetails" asp-route-id="@evnt.Id" style="width: 6rem;">Event Details</a>
+                                <a href="@evnt.Url" class="btn btn-s purchase-button m-1" style="width: 6rem;">Buy Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-5"></div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+            </div>
+
+            @{
+                evnt = events[i + 1];
+                formattedDate = evnt.DatetimeUtc.ToString("MMM dd, yyyy");
+
+            }
+            <div class="col-md-5">
+                <div class="right-div">
+                    <div class="event-list text-light m-0 p-0" id="ovelay" style="background-image: url(@evnt.Performers[0].Image);">
+                        <div class="box">
+                            <div class="date-card">@formattedDate</div>
+                            <br>
+                            <h2 class="card-title text-nowrap overflow-ellipsis">@evnt.ShortTitle</h2>
+                            <p class="text-light">Venue: @evnt.Venue.Name</p>
+                            <div class="card-footer btn-group" style="text-align: center; width: 100%">
+                                <a class="btn btn-s details-button m-1" asp-page="/eventdetails" asp-route-id="@evnt.Id" style="width: 6rem;">Event Details</a>
+                                <a href="@evnt.Url" class="btn btn-s purchase-button m-1" style="width: 6rem;">Buy Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-5"></div>
+                </div>
+            </div>
+        </div>
+    }
+}

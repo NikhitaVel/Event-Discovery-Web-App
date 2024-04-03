@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FinalProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FinalProject.styles.css" asp-append-version="true" />
+    <link href="~/css/theatre.css" rel="stylesheet" />
+    <link href="~/css/sports.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Internal style sheet -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+   
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow navbar-dark bg-dark text-white mb-3 m-0 p-0  fixed-top">
+            <div class="container">
+                <a class="navbar-brand m-0 p-0" asp-area="" asp-page="/Index">
+                    <img src="~/452 Logo.png" width="60" height="60" alt="452 Brand Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center">
+                    <ul class="navbar-nav flex-grow-1 m-1 mt-0 mb-0">
+                        <li class="nav-item active">
+                            <a class="nav-link text-white" asp-area="" asp-page="/music">Music</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Sports">Sports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Theater">Theater</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/States">Game</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Search">Search</a>
+                        </li>
+                    
+                        <li class="nav-item"></li>
+                    </ul>
+                    <div class="navbar-nav flex-grow-1">
+                        <form method="GET" action="../Search" class="navbar-nav flex-grow-1 justify-content-end">
+                            <div class="nav- m-1">
+                                <input name="SearchString" class="form-control mr-sm-2" type="search" placeholder="Enter Search Term" aria-label="Search">
+                            </div>
+                            <div class="nav-item m-1">
+                                <button class="btn btn-grad-layout my-2 my-sm-0" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - FinalProject - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

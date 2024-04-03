@@ -1,0 +1,177 @@
+@page
+@model FinalProject.Pages.Search
+@using EventData;
+
+@{
+    ViewData["Title"] = "Search Cincy";
+    String SearchString = (String)ViewData["searchString"];
+    List<Event> events = (List<Event>) ViewData["Events"];
+    // String events = (String)ViewData["Events"];
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/WUC.styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/Shared/_layout.cshtml.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/searchstyle.css" asp-append-version="true" />
+        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        
+    </head>
+    <style>
+        html {
+            background: rgb(255,207,92);
+            background: linear-gradient(42deg, rgba(255,207,92,1) 0%, rgba(255,92,92,1) 46%, rgba(152,92,255,1) 100%);
+        }
+        .calendar-date {
+            background-color: transparent;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            padding: 5px;
+            margin-bottom: 5px;
+            width: 120px;
+        }
+        .calendar {
+            font-size: 1.0rem;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 10vh;
+            background-color: rgba(255, 255,255, 0.3);
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .calendar-container {
+            display: flex;
+            align-items: center;
+        }
+        .custom-paragraph {
+            margin-bottom: 0.1em; /* Adjust the value as needed */
+        }
+        .btn-warning {
+            margin: 0;
+            height: 100%;
+        }
+        .icon {
+            height: 20px;
+            width: 20px;
+            display: block;
+        }
+        .carousel-inner .carousel-item-end.active,
+        .carousel-inner .carousel-item-next {
+            transform: translateX(25%);
+        }
+        .carousel-inner .carousel-item-start.active,
+        .carousel-inner .carousel-item-prev {
+            transform: translateX(-25%);
+        }
+        .carousel-inner .carousel-item-end,
+        .carousel-inner .carousel-item-start {
+            transform: translateX(0);
+        }
+    </style>
+
+    <body>
+    <div class="p-6"></div>
+    <div class="container p-6">
+        <form method="get">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h2 class="display-2 p-6 text-center" style="color: white;">Search Cincy</h2>
+                    <input type="search" name="SearchString" id="address" class="form-control" placeholder="Go on type in what you'd like to do" />
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-5"></div>
+                <div class="col-2">
+                    <button type="submit" class="btn-grad btn-sm">Search</button>
+                    
+                </div>
+                <div class="col-5"></div>
+            </div>
+        </form>
+    </div>
+    <br/>
+    @if (SearchString != null)
+    {
+        <div class="container">
+            <h1 class="display-6 text-light">Coming Up This Week!</h1>
+            <div class="row">
+                @foreach (Event evnt in events.Where(e => e.DatetimeLocal <= DateTime.Today.AddDays(7)))
+                {
+                    <div class="col-sm-4 p-3">
+                        <div class="card">
+                            <img src="@evnt.Performers[0].Image" class="card-img-top" alt="Event 1">
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-light text-nowrap"><strong>@evnt.ShortTitle</strong></h5>
+                                <p class="card-text align-top text-light p-0 m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
+                                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    @evnt.DatetimeLocal.ToString("MMM dd, hh:mm tt")
+                                </p>
+                                <p class="card-text align-top text-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                                    </svg>
+                                    @evnt.Venue.Name
+                                </p>
+                                <div class="card-footer btn-group" style="text-align: center; width: 100%">
+                                    <a class="btn btn-s details-button m-1" asp-page="/eventdetails" asp-route-id="@evnt.Id" style="width: 6rem;">Event Details</a>
+                                    <a href="@evnt.Url" class="btn btn-s purchase-button m-1" style="width: 6rem;">Buy Ticket</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                }
+            </div>
+            <br/>
+        </div>
+        
+        <div class="container">
+            <h1 class="display-6 text-light">Plan Ahead!</h1>
+            <div class="row">
+                @foreach (Event evnt in events.Where(e => e.DatetimeLocal > DateTime.Today.AddDays(7)))
+                {
+                    <div class="col-sm-4 p-3">
+                        <div class="card">
+                            <img src="@evnt.Performers[0].Image" class="card-img-top" alt="Event 1">
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-light text-nowrap"><strong>@evnt.ShortTitle</strong></h5>
+                                <p class="card-text align-top text-light p-0 m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
+                                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    @evnt.DatetimeLocal.ToString("MMM dd, hh:mm tt")
+                                </p>
+                                <p class="card-text align-top text-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                                    </svg>
+                                    @evnt.Venue.Name
+                                </p>
+                                <div class="card-footer btn-group" style="text-align: center; width: 100%">
+                                    <a class="btn btn-s details-button m-1" asp-page="/eventdetails" asp-route-id="@evnt.Id" style="width: 6rem;">Event Details</a>
+                                    <a href="@evnt.Url" class="btn btn-s purchase-button m-1" style="width: 6rem;">Buy Ticket</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                }
+            </div>
+            <br/>
+        </div>
+    }
+    </body>
+</html>
